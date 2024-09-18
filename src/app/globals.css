@@ -24,15 +24,123 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+header{
+  padding: 15px;
+  background-color: #A4AF69;
+  text-align: center;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
+ul{
+  padding-left: 30px;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+#textToRespons{
+  min-height: 575px;
+  max-height: 575px;
+  overflow-y: scroll;
+  max-width: 75%;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+
+#textToRequest{
+  max-width: 75%;
+  margin: 0 auto;
+}
+
+#textToRequest div{
+  background-color: #A4AF69;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  display: flex;
+}
+
+#textToRequest input{
+  width: 92.5%;
+  background-color: #A4AF69;
+  opacity: 0.75;
+  border: none;
+  outline: none;
+  border: 2px solid #cecece;
+  border-radius: 15px;
+  padding: 0 10px;
+}
+
+.buttonToSend {
+  width: 7.5%;
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  margin-left: 2.5px;
+  touch-action: manipulation;
+}
+
+.buttonToSend:hover {
+  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.buttonToSend img{
+  width: 17.5px;
+  height: 17.5px;
+}
+
+.bot, .user {
+  display: flex;
+  width: 75%;
+  font-size: 1.25rem;
+  padding: 10px 0 10px 10px;
+  margin: 10px 0 10px 0;
+}
+
+.user{
+  justify-content: right;
+  float:right
+}
+
+
+.bot img, .user img{
+  width: 40px;
+  border-radius: 10px;
+  height: 40px;
+  margin-right: 5px;
+}
+
+.bot p, .user p{
+  text-align: left;
+  max-width: 100%;
+  background-color: #A4AF69;
+  word-break: break-word;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.user p{
+  background-color: #A4AF6940;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,37 +1,63 @@
 // src/app/page.js
 'use client';
 
-import { useEffect, useState } from 'react';
+import GenerateArticle from '@/components/GenerateArticle';
+import { useState } from "react";
 
 export default function Home() {
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isSending, setIsSending] = useState(false);
+  const [arr, setArr] = useState([{ type: "bot", content: "Bienvenue sur le bot Brawhallah Gemini ! Je suis conçu exclusivement pour répondre à toutes vos questions concernant le jeux => __**BrawlHalla**__." }]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/answer');
-        const data = await response.json();
-        setResult(data.result);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données", error);
-        setResult("Erreur lors de la récupération des données.");
-      } finally {
-        setLoading(false);
+  const handlerButton = async (e) => {
+    const value = document.getElementById("toRequest");
+    if (value.value !== "") {
+      const userRequest= { type: "user", content: value.value };
+      setArr(prevArr => [...prevArr, userRequest]);
+
+      setIsSending(true);
+      value.value = "";
+      const response = await fetch('/api/answer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: userRequest.content }),
+      });
+      
+      if(response.status === 200){
+        const data = await response.json();  
+        setArr(prevArr => [...prevArr, { type: "bot", content: data?.result }]);  
+      } else {
+        alert("Erreur interne");
       }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <p>Chargement...</p>;
-  }
+      
+      setIsSending(false);
+    } else {
+      alert("Votre demande est vide ?");
+      setIsSending(false);
+    }
+  };
 
   return (
-    <div>
-      <h1>Résultat du prompt :</h1>
-      {result ? <p>{result}</p> : <p>Aucun résultat.</p>}
-    </div>
+    <main>
+      <GenerateArticle content={arr} />
+      <section id="textToRequest">
+        <div>
+          <input type="text" disabled={isSending} id="toRequest" />
+          <button
+            className="buttonToSend"
+            role="button"
+            disabled={isSending}
+            onClick={handlerButton}
+          >
+            {isSending ? (
+              <img src="/assets/loading.gif" />
+            ) : (
+              <img src="/assets/arrow.png" />
+            )}
+          </button>
+        </div>
+      </section>
+    </main>
   );
 }
