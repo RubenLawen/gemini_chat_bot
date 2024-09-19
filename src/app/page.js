@@ -8,7 +8,7 @@ export default function Home() {
   const [isSending, setIsSending] = useState(false);
   const [arr, setArr] = useState([{ type: "bot", content: "Bienvenue sur le bot Brawhallah Gemini ! Je suis conçu exclusivement pour répondre à toutes vos questions concernant le jeux => __**BrawlHalla**__." }]);
 
-  const handlerButton = async (e) => {
+  const handlerButton = async () => {
     const value = document.getElementById("toRequest");
     if (value.value !== "") {
       const userRequest= { type: "user", content: value.value };
@@ -38,12 +38,18 @@ export default function Home() {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handlerButton()
+    }
+  };
+
   return (
     <main>
       <GenerateArticle content={arr} />
       <section id="textToRequest">
         <div>
-          <input type="text" disabled={isSending} id="toRequest" />
+          <input type="text" disabled={isSending} id="toRequest" onKeyDown={handleKeyDown} />
           <button
             className="buttonToSend"
             role="button"
